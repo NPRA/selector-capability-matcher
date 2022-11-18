@@ -53,6 +53,16 @@ public class SelectorCapabilityMatcherTest {
     }
 
     @Test
+    public void match_quadtree_UnknownAndselFalseSupersetOfCap_false() {
+        assertFalse(matcher.qtmatch("banana = 'pie' AND quadTree not LIKE '%,1%'", capabilityJson));
+    }
+
+    @Test
+    public void match_quadtree_UnknownOrselFalseSupersetOfCap_true() {
+        assertTrue(matcher.qtmatch("banana = 'pie' or quadTree not LIKE '%,1%'", capabilityJson));
+    }
+
+    @Test
     public void match_quadtree_selTrueFalseNoOverlapSubsetOfCap_true() {
         assertTrue(matcher.qtmatch("quadTree LIKE '%,12002010%' and quadTree not LIKE '%,12002011%'", capabilityJson));
     }
@@ -119,6 +129,17 @@ public class SelectorCapabilityMatcherTest {
     public void match_stringPropertyLikeString_true() {
         assertTrue(matcher.match("stringProperty LIKE 'string'", capabilityJson));
     }
+
+    /*
+    @Test
+    public void match_stringPropertyLikeRI2_true() {
+        assertTrue(matcher.match("not ('string' LIKE '%loff%')", capabilityJson)); //"stringProperty": "string",
+    }
+
+    @Test
+    public void match_stringPropertyLikeRI3_true() {
+        assertTrue(matcher.match("not 'string' LIKE '%loff%'", capabilityJson)); //"stringProperty": "string",
+    }*/
 
     @Test
     public void match_stringPropertyLikeRI_true() {
